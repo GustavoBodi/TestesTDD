@@ -78,6 +78,17 @@ class EmpresaTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.empresa.adicionar_projeto(projeto_planta)
 
-
     def teste_adicionar_funcionario_roberto_ao_projeto_planta_do_banco(self):
-        pass
+        nome = "Planta"
+        orçamento = 2000
+        roberto = Funcionario("Roberto", "cpf", 1300, "chefe")
+        self.empresa.adicionar_funcionario(roberto)
+        projeto_planta = Projeto(nome, orçamento)
+
+        projeto_planta.adicionar_colaborador(roberto)
+
+        assert projeto_planta.colaboradores[0].cpf == "cpf"
+        assert projeto_planta.colaboradores[0].nome == "Roberto"
+        assert projeto_planta.colaboradores[0].salário == 1300
+        assert projeto_planta.colaboradores[0].cargo == "chefe"
+        assert len(projeto_planta.colaboradores) == 1

@@ -1,4 +1,5 @@
 import unittest
+from src.Funcionario import Funcionario
 
 
 class FuncionarioTest(unittest.TestCase):
@@ -8,7 +9,7 @@ class FuncionarioTest(unittest.TestCase):
         salário = 1000
         cargo = "Chefe"
 
-        funcionario = Funcionario(nome, cpf, numero_de_telefone, endereço, salário)
+        funcionario = Funcionario(nome, cpf, salário, cargo)
 
         assert funcionario.nome == nome
         assert funcionario.cpf == cpf

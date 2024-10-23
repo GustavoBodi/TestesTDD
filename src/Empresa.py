@@ -20,4 +20,9 @@ class Empresa:
         for projeto_lista in self.projetos:
             if projeto_lista.nome == projeto.nome:
                 raise ValueError()
+        for colaborador in projeto.colaboradores:
+            for funcionario_lista in self.funcionarios:
+                if funcionario_lista.cpf == colaborador.cpf:
+                    continue
+            raise ValueError()
         self.projetos.append(projeto)

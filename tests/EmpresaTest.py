@@ -1,4 +1,5 @@
 import unittest
+from src.Empresa import Empresa
 
 
 class EmpresaTest(unittest.TestCase):
@@ -8,4 +9,3 @@ class EmpresaTest(unittest.TestCase):
         assert empresa.funcionarios == []
         assert empresa.projetos == []
         assert empresa.nome == nome_empresa
-

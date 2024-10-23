@@ -1,2 +1,2 @@
 all:
-	python -m unittest discover -s tests
+	python -m unittest tests/EmpresaTest.py

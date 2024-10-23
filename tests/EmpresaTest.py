@@ -1,6 +1,7 @@
 import unittest
 from src.Funcionario import Funcionario
 from src.Empresa import Empresa
+from src.Projeto import Projeto
 
 
 class EmpresaTest(unittest.TestCase):
@@ -44,5 +45,23 @@ class EmpresaTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.empresa.adicionar_funcionario(jeffersson)
 
+    def teste_adicionar_projeto_na_empresa_valido(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
 
+        self.empresa.adicionar_projeto(projeto)
 
+        assert self.empresa.projetos[0].nome == "Planta"
+        assert self.empresa.projetos[0].orçamento == 2000
+        assert self.empresa.projetos[0].colaboradores == []
+
+    def teste_adicionar_projeto_na_empresa_duplicado(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto_planta = Projeto(nome, orçamento)
+        projeto_clone = Projeto(nome, orçamento)
+
+        self.empresa.adicionar_projeto(projeto_planta)
+        with self.assertRaises(ValueError):
+            self.empresa.adicionar_projeto(projeto_clone)

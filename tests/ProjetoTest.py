@@ -12,3 +12,11 @@ class ProjetoTest(unittest.TestCase):
         assert projeto.nome == nome
         assert projeto.orçamento == orçamento
         assert projeto.colaboradores == []
+
+    def teste_orçamento_zero(self):
+        nome = "Planta"
+        orçamento = 0
+
+        with self.assertRaises(ValueError):
+            projeto = Projeto(nome, orçamento)
+

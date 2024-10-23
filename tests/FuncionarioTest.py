@@ -15,3 +15,11 @@ class FuncionarioTest(unittest.TestCase):
         assert funcionario.cpf == cpf
         assert funcionario.salário == salário
         assert funcionario.cargo == cargo
+
+    def teste_construtor_funcionario_algum_parametro_invalido(self):
+        cpf = "cpf"
+        salário = 1000
+        cargo = "Chefe"
+
+        with self.assertRaises(Exception):
+            funcionario = Funcionario(None, cpf, salário, cargo)

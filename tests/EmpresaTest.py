@@ -84,11 +84,13 @@ class EmpresaTest(unittest.TestCase):
         roberto = Funcionario("Roberto", "cpf", 1300, "chefe")
         self.empresa.adicionar_funcionario(roberto)
         projeto_planta = Projeto(nome, orçamento)
-
         projeto_planta.adicionar_colaborador(roberto)
 
-        assert projeto_planta.colaboradores[0].cpf == "cpf"
-        assert projeto_planta.colaboradores[0].nome == "Roberto"
-        assert projeto_planta.colaboradores[0].salário == 1300
-        assert projeto_planta.colaboradores[0].cargo == "chefe"
-        assert len(projeto_planta.colaboradores) == 1
+        self.empresa.adicionar_projeto(projeto_planta)
+
+        assert self.empresa.projetos[0].colaboradores[0].cpf == "cpf"
+        assert self.empresa.projetos[0].colaboradores[0].nome == "Roberto"
+        assert self.empresa.projetos[0].colaboradores[0].salário == 1300
+        assert self.empresa.projetos[0].colaboradores[0].cargo == "chefe"
+        assert len(self.empresa.projetos[0].colaboradores) == 1
+        assert len(self.empresa.projetos) == 1

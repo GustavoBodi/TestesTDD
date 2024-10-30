@@ -39,7 +39,7 @@ class OcorrenciaTest(unittest.TestCase):
     def teste_criar_ocorrencia_inexistente(self):
         tipo = "aaa"
         prioridade = "baixa"
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
 
     def teste_criar_prioridade_alta(self):
@@ -63,5 +63,13 @@ class OcorrenciaTest(unittest.TestCase):
     def teste_criar_prioridade_inexistente(self):
         tipo = "tarefa"
         prioridade = "aaa"
-        with self.assertRaises(Exception):
+        with self.assertRaises(ValueError):
             Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
+
+    def teste_criar_identificador_diferente_ocorrencia(self):
+        tipo = "tarefa"
+        prioridade = "baixa"
+        ocorrencia = Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
+        ocorrencia2 = Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
+        assert ocorrencia.id != ocorrencia2.id
+

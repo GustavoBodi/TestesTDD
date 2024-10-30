@@ -1,4 +1,5 @@
 from src.Funcionario import Funcionario
+import random
 
 
 class Ocorrencia:
@@ -14,4 +15,5 @@ class Ocorrencia:
             raise ValueError()
         self.responsavel = responsavel
         self.responsavel.quantidade_projetos += 1
+        self.id = random.randint(1, 10000)
 

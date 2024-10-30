@@ -9,4 +9,4 @@ class Funcionario(unittest.TestCase):
         self.cpf = cpf
         self.salário = salário
         self.cargo = cargo
-        self.quantidade_projetos = 0
+        self.quantidade_ocorrencias = 0

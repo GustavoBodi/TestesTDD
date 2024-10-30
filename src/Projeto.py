@@ -27,3 +27,14 @@ class Projeto:
         self.verificar_colaborador_projeto(funcionario)
         ocorrencia = Ocorrencia(resumo, tipo, prioridade, funcionario)
         self.ocorrencias.append(ocorrencia)
+        return ocorrencia.id
+
+    def mudar_responsavel_ocorrencia(self, id: int, novo_responsavel: Funcionario):
+        self.verificar_colaborador_projeto(novo_responsavel)
+        ocorrencia_final = None
+        for ocorrencia in self.ocorrencias:
+            if ocorrencia.id == id:
+                ocorrencia_final = ocorrencia
+        if ocorrencia_final is None:
+            raise ValueError()
+        ocorrencia_final.mudar_responsavel(novo_responsavel)

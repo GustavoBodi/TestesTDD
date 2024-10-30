@@ -1,5 +1,6 @@
 from src.Funcionario import Funcionario
 from src.Projeto import Projeto
+from src.Ocorrencia import Ocorrencia
 
 
 class Empresa:

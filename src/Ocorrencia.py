@@ -11,9 +11,13 @@ class Ocorrencia:
             raise ValueError()
         if prioridade not in ["alta", "media", "baixa"]:
             raise ValueError()
-        if responsavel.quantidade_projetos == 10:
+        if responsavel.quantidade_ocorrencias == 10:
             raise ValueError()
         self.responsavel = responsavel
-        self.responsavel.quantidade_projetos += 1
+        self.responsavel.quantidade_ocorrencias += 1
         self.id = random.randint(1, 10000)
 
+    def mudar_responsavel(self, novo_responsavel: Funcionario):
+        self.responsavel.quantidade_ocorrencias -= 1
+        novo_responsavel.quantidade_ocorrencias += 1
+        self.responsavel = novo_responsavel

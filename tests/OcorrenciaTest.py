@@ -73,3 +73,29 @@ class OcorrenciaTest(unittest.TestCase):
         ocorrencia2 = Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
         assert ocorrencia.id != ocorrencia2.id
 
+    def teste_modificar_responsavel(self):
+        tipo = "tarefa"
+        prioridade = "baixa"
+        ocorrencia = Ocorrencia(self.resumo, tipo, prioridade, self.responsavel)
+        responsavel_roberto = Funcionario("roberto", "cpf2", 1400, "chefe")
+
+        ocorrencia.mudar_responsavel(responsavel_roberto)
+
+        assert ocorrencia.responsavel.cpf == responsavel_roberto.cpf
+        assert responsavel_roberto.quantidade_ocorrencias == 1
+        assert self.responsavel.quantidade_ocorrencias == 0
+
+    def teste_adicionar_onze_projetos_erro(self):
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        with self.assertRaises(ValueError):
+            Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+

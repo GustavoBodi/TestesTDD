@@ -66,3 +66,38 @@ class ProjetoTest(unittest.TestCase):
         resumo = "resumo"
         with self.assertRaises(ValueError):
             projeto.adicionar_ocorrencia(resumo, tipo, prioridade, funcionario)
+
+    def teste_adicionar_multiplos_funcionarios_projeto(self):
+        projeto_planta = Projeto("Planta", 5000)
+        carlos = Funcionario("Carlos", "cpf", 100, "chefe")
+        jefersson = Funcionario("Jefersson", "cpff", 100, "chefe")
+        projeto_planta.adicionar_colaborador(carlos)
+        projeto_planta.adicionar_colaborador(jefersson)
+        assert len(projeto_planta.colaboradores) == 2
+
+    def teste_mudar_responsavel_ocorrencia(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        novo_responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+
+        projeto.mudar_responsavel_ocorrencia(id, novo_responsavel)
+
+        assert projeto.ocorrencias[0].responsavel.cpf == novo_responsavel.cpf
+
+    def teste_mudar_responsavel_ocorrencia_inexistente(self):
+        projeto = Projeto("Planta", 3000)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        novo_responsavel = Funcionario("Carl~ao", "cpff", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        projeto.adicionar_colaborador(novo_responsavel)
+        projeto.adicionar_ocorrencia("resumo", "tarefa", "baixa", responsavel)
+        with self.assertRaises(ValueError):
+            projeto.mudar_responsavel_ocorrencia(-1, novo_responsavel)
+

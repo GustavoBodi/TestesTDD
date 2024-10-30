@@ -94,3 +94,18 @@ class EmpresaTest(unittest.TestCase):
         assert self.empresa.projetos[0].colaboradores[0].cargo == "chefe"
         assert len(self.empresa.projetos[0].colaboradores) == 1
         assert len(self.empresa.projetos) == 1
+
+    def teste_adicionar_multiplos_funcionarios_empresa(self):
+        roberto = Funcionario("Roberto", "cpf", 1300, "chefe")
+        robertao = Funcionario("Robertão", "cpfss", 1300, "chefe")
+        self.empresa.adicionar_funcionario(roberto)
+        self.empresa.adicionar_funcionario(robertao)
+        len(self.empresa.funcionarios) == 2
+
+    def teste_adicionar_multiplos_projetos_empresa(self):
+        projeto_planta = Projeto("Planta", 2000)
+        projeto_muda = Projeto("Muda", 3000)
+        self.empresa.adicionar_projeto(projeto_planta)
+        self.empresa.adicionar_projeto(projeto_muda)
+        assert len(self.empresa.projetos) == 2
+

@@ -29,3 +29,10 @@ class Ocorrencia:
         
     def verificar_estado(self):
         return self.estado
+    
+    def alterar_prioridade(self, nova_prioridade):
+        if nova_prioridade not in ["alta", "media", "baixa"] or nova_prioridade == self.prioridade:
+            raise ValueError()
+        if self.verificar_estado() == "fechada":
+            raise ValueError()
+        self.prioridade = nova_prioridade

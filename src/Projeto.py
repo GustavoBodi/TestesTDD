@@ -22,7 +22,7 @@ class Projeto:
             if colaborador.cpf == colaborador_lista.cpf:
                 return
         raise ValueError()
-
+    
     def adicionar_ocorrencia(self, resumo: str, tipo: str, prioridade: str, responsavel: Funcionario):
         self.verificar_colaborador_projeto(responsavel)
         ocorrencia = Ocorrencia(resumo, tipo, prioridade, responsavel)
@@ -31,13 +31,13 @@ class Projeto:
 
     def mudar_responsavel_ocorrencia(self, id: int, novo_responsavel: Funcionario):
         self.verificar_colaborador_projeto(novo_responsavel)
-        ocorrencia_final = None
+        ocorrencia_valida = None
         for ocorrencia in self.ocorrencias:
-            if ocorrencia.id == id:
-                ocorrencia_final = ocorrencia
-        if ocorrencia_final is None:
+            if ocorrencia.id == id and ocorrencia.verificar_estado() == "aberta":
+                ocorrencia_valida = ocorrencia
+        if ocorrencia_valida is None:
             raise ValueError()
-        ocorrencia_final.mudar_responsavel(novo_responsavel)
+        ocorrencia_valida.mudar_responsavel(novo_responsavel)
         
     def fechar_ocorrencia(self, id: int):
         ocorrencia_final = None

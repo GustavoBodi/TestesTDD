@@ -75,7 +75,7 @@ class ProjetoTest(unittest.TestCase):
         projeto_planta.adicionar_colaborador(jefersson)
         assert len(projeto_planta.colaboradores) == 2
 
-    def teste_mudar_responsavel_ocorrencia(self):
+    def teste_mudar_responsavel_ocorrencia_aberta(self):
         nome = "Planta"
         orçamento = 2000
         projeto = Projeto(nome, orçamento)
@@ -90,6 +90,23 @@ class ProjetoTest(unittest.TestCase):
         projeto.mudar_responsavel_ocorrencia(id, novo_responsavel)
 
         assert projeto.ocorrencias[0].responsavel.cpf == novo_responsavel.cpf
+        assert projeto.ocorrencias[0].verificar_estado() == "aberta"
+
+    def teste_mudar_responsavel_ocorrencia_fechada(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        novo_responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+        projeto.fechar_ocorrencia(id)
+
+        with self.assertRaises(ValueError):
+            projeto.mudar_responsavel_ocorrencia(id, novo_responsavel)
 
     def teste_mudar_responsavel_ocorrencia_inexistente(self):
         projeto = Projeto("Planta", 3000)

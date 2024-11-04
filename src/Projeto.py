@@ -23,9 +23,9 @@ class Projeto:
                 return
         raise ValueError()
 
-    def adicionar_ocorrencia(self, resumo: str, tipo: str, prioridade: str, funcionario: Funcionario):
-        self.verificar_colaborador_projeto(funcionario)
-        ocorrencia = Ocorrencia(resumo, tipo, prioridade, funcionario)
+    def adicionar_ocorrencia(self, resumo: str, tipo: str, prioridade: str, responsavel: Funcionario):
+        self.verificar_colaborador_projeto(responsavel)
+        ocorrencia = Ocorrencia(resumo, tipo, prioridade, responsavel)
         self.ocorrencias.append(ocorrencia)
         return ocorrencia.id
 
@@ -38,3 +38,12 @@ class Projeto:
         if ocorrencia_final is None:
             raise ValueError()
         ocorrencia_final.mudar_responsavel(novo_responsavel)
+        
+    def fechar_ocorrencia(self, id: int):
+        ocorrencia_final = None
+        for ocorrencia in self.ocorrencias:
+            if ocorrencia.id == id:
+                ocorrencia_final = ocorrencia
+        if ocorrencia_final is None:
+            raise ValueError()
+        ocorrencia_final.fechar_ocorrencia()

@@ -16,8 +16,16 @@ class Ocorrencia:
         self.responsavel = responsavel
         self.responsavel.quantidade_ocorrencias += 1
         self.id = random.randint(1, 10000)
+        self.estado = "aberta"
 
     def mudar_responsavel(self, novo_responsavel: Funcionario):
         self.responsavel.quantidade_ocorrencias -= 1
         novo_responsavel.quantidade_ocorrencias += 1
         self.responsavel = novo_responsavel
+        
+    def fechar_ocorrencia(self):
+        self.estado = "fechada"
+        self.responsavel.quantidade_ocorrencias -= 1
+        
+    def verificar_estado(self):
+        return self.estado

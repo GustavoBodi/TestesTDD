@@ -98,6 +98,33 @@ class ProjetoTest(unittest.TestCase):
         projeto.adicionar_colaborador(responsavel)
         projeto.adicionar_colaborador(novo_responsavel)
         projeto.adicionar_ocorrencia("resumo", "tarefa", "baixa", responsavel)
+
         with self.assertRaises(ValueError):
             projeto.mudar_responsavel_ocorrencia(-1, novo_responsavel)
 
+    def teste_responsavel_fecha_ocorrencia(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+
+        projeto.fechar_ocorrencia(id)
+
+        assert projeto.ocorrencias[0].verificar_estado() == "fechada"
+        assert responsavel.quantidade_ocorrencias == 0
+
+    def teste_responsavel_fecha_ocorrencia_inexistente(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        id_inexistente = -1
+        
+        with self.assertRaises(ValueError):
+            projeto.fechar_ocorrencia(id_inexistente)

@@ -98,4 +98,10 @@ class OcorrenciaTest(unittest.TestCase):
         Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
         with self.assertRaises(ValueError):
             Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+            
+    def teste_verificar_estado_inicial_aberta(self):
+        ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        
+        assert ocorrencia.estado == "aberta"
+        
 

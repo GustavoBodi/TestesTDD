@@ -103,6 +103,21 @@ class OcorrenciaTest(unittest.TestCase):
         ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
         
         assert ocorrencia.estado == "aberta"
+        assert self.responsavel.quantidade_ocorrencias == 1
+        
+    def teste_fechar_ocorrencia_aberta(self):
+        ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        ocorrencia.fechar_ocorrencia()
+        
+        assert ocorrencia.estado == "fechada"
+        assert self.responsavel.quantidade_ocorrencias == 0
+    
+    def teste_fechar_ocorrencia_fechada(self):
+        ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
+        ocorrencia.fechar_ocorrencia()
+        
+        with self.assertRaises(ValueError):
+            ocorrencia.fechar_ocorrencia()
 
     def teste_alterar_prioridade_baixa_para_alta_aberta(self):
         ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
@@ -126,7 +141,7 @@ class OcorrenciaTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             ocorrencia.alterar_prioridade(nova_prioridade)
     
-    def teste_alterar_prioridade_para_a_mesma_falha(self):
+    def teste_alterar_prioridade_baixa_para_baixa_falha(self):
         ocorrencia = Ocorrencia("resumo", "tarefa", "baixa", self.responsavel)
         nova_prioridade = "baixa"
 

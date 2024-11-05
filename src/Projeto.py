@@ -28,22 +28,28 @@ class Projeto:
         ocorrencia = Ocorrencia(resumo, tipo, prioridade, responsavel)
         self.ocorrencias.append(ocorrencia)
         return ocorrencia.id
+    
+    def procurar_ocorrencia_aberta(self, id: int):
+        for ocorrencia in self.ocorrencias:
+            if ocorrencia.id == id and ocorrencia.verificar_estado() == "aberta":
+                return ocorrencia
+        return None
 
     def mudar_responsavel_ocorrencia(self, id: int, novo_responsavel: Funcionario):
         self.verificar_colaborador_projeto(novo_responsavel)
-        ocorrencia_valida = None
-        for ocorrencia in self.ocorrencias:
-            if ocorrencia.id == id and ocorrencia.verificar_estado() == "aberta":
-                ocorrencia_valida = ocorrencia
-        if ocorrencia_valida is None:
+        ocorrencia = self.procurar_ocorrencia_aberta(id)
+        if ocorrencia is None:
             raise ValueError()
-        ocorrencia_valida.mudar_responsavel(novo_responsavel)
-        
+        ocorrencia.mudar_responsavel(novo_responsavel)
+    
+    def alterar_prioridade_ocorrencia(self, id: int, nova_prioridade: str):
+        ocorrencia = self.procurar_ocorrencia_aberta(id)
+        if ocorrencia is None:
+            raise ValueError()
+        ocorrencia.alterar_prioridade(nova_prioridade)
+    
     def fechar_ocorrencia(self, id: int):
-        ocorrencia_final = None
-        for ocorrencia in self.ocorrencias:
-            if ocorrencia.id == id:
-                ocorrencia_final = ocorrencia
-        if ocorrencia_final is None:
+        ocorrencia = self.procurar_ocorrencia_aberta(id)
+        if ocorrencia is None:
             raise ValueError()
-        ocorrencia_final.fechar_ocorrencia()
+        ocorrencia.fechar_ocorrencia()

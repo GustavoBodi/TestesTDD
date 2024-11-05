@@ -145,3 +145,65 @@ class ProjetoTest(unittest.TestCase):
         
         with self.assertRaises(ValueError):
             projeto.fechar_ocorrencia(id_inexistente)
+
+    def teste_alterar_prioridade_baixa_para_alta_ocorrencia_aberta(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+        nova_prioridade = "alta"
+
+        projeto.alterar_prioridade_ocorrencia(id, nova_prioridade)
+
+        assert projeto.ocorrencias[0].prioridade == nova_prioridade
+    
+    def teste_alterar_prioridade_baixa_para_alta_ocorrencia_fechada_falha(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+        projeto.fechar_ocorrencia(id)
+        nova_prioridade = "alta"
+
+        with self.assertRaises(ValueError):
+            projeto.alterar_prioridade_ocorrencia(id, nova_prioridade)
+            
+    def teste_alterar_prioridade_inexistente_ocorrencia(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+        nova_prioridade = "xxxxx"
+
+        with self.assertRaises(ValueError):
+            projeto.alterar_prioridade_ocorrencia(id, nova_prioridade)
+            
+    def teste_fechar_ocorrencia_fechada(self):
+        nome = "Planta"
+        orçamento = 2000
+        projeto = Projeto(nome, orçamento)
+        responsavel = Funcionario("Carlos", "cpf", 100, "chefe")
+        projeto.adicionar_colaborador(responsavel)
+        tipo = "tarefa"
+        prioridade = "baixa"
+        resumo = "resumo"
+        id = projeto.adicionar_ocorrencia(resumo, tipo, prioridade, responsavel)
+        projeto.fechar_ocorrencia(id)
+        
+        with self.assertRaises(ValueError):
+            projeto.fechar_ocorrencia(id)

@@ -24,6 +24,8 @@ class Ocorrencia:
         self.responsavel = novo_responsavel
         
     def fechar_ocorrencia(self):
+        if self.estado == "fechada":
+            raise ValueError()
         self.estado = "fechada"
         self.responsavel.quantidade_ocorrencias -= 1
         
